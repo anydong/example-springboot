@@ -8,6 +8,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @Aspect
 @Component
@@ -26,7 +27,9 @@ public class ControllerAspect {
     public void before(JoinPoint joinPoint) {
         log.info("before joinPoint: {}", joinPoint);
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = servletRequestAttributes.getRequest();
+        if (Objects.nonNull(servletRequestAttributes)) {
+            HttpServletRequest request = servletRequestAttributes.getRequest();
+        }
     }
 
     /**
