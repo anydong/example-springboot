@@ -1,8 +1,11 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +16,9 @@ public class ValidationResult {
     @Getter
     @Setter
     private Map<String, List<String>> errors;
+
+    @Resource
+    private ObjectMapper objectMapper;
 
     public ValidationResult(Boolean valid) {
         this.valid = valid;
@@ -33,7 +39,8 @@ public class ValidationResult {
         this.errors.put(field, messages);
     }
 
+    @SneakyThrows
     public String toString() {
-        return JSON.toJSONString(this.errors);
+        return objectMapper.writeValueAsString(this.errors);
     }
 }

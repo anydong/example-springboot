@@ -30,7 +30,7 @@ public class ResponseResult {
 
     @Getter
     @AllArgsConstructor
-    public static enum CodeEnum {
+    public enum CodeEnum {
         SUCCESS("00000", "SUCCESS"),
         INVALID_INPUT("A0001", "Invalid input."),
         ;
