@@ -16,6 +16,7 @@ public class RegisterQuery {
 
     @NotBlank
     @Length(min = 6)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @NotBlank
