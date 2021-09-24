@@ -87,4 +87,10 @@ public class GlobalExceptionHandler {
         }
         return ResponseResult.invalidInput(ValidationResult.getErrors());
     }
+
+    @ExceptionHandler(ValidateException.class)
+    @ResponseStatus(code = HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseResult validateExceptionHandler(ValidateException validateException) {
+        return ResponseResult.invalidInput(validateException.getErrors());
+    }
 }
