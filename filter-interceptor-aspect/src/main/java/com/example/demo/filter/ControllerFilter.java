@@ -27,6 +27,5 @@ public class ControllerFilter implements Filter {
     public void destroy() {
         log.info("controllerFilter destroy");
         Filter.super.destroy();
-
     }
 }
