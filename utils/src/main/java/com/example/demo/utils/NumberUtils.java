@@ -93,10 +93,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean lt(Integer a, Integer b) {
-        if (null == a || null == b) {
-            return false;
-        }
-        return a.compareTo(b) < 0;
+        return a != null && b != null && a.compareTo(b) < 0;
     }
 
     /**
@@ -105,10 +102,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean lt(Long a, Long b) {
-        if (null == a || null == b) {
-            return false;
-        }
-        return a.compareTo(b) < 0;
+        return a != null && b != null && a.compareTo(b) < 0;
     }
 
     /**
@@ -117,10 +111,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean le(Integer a, Integer b) {
-        if (null == a || null == b) {
-            return false;
-        }
-        return a.compareTo(b) <= 0;
+        return a != null && b != null && a.compareTo(b) <= 0;
     }
 
     /**
@@ -129,10 +120,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean le(Long a, Long b) {
-        if (null == a || null == b) {
-            return false;
-        }
-        return a.compareTo(b) <= 0;
+        return a != null && b != null && a.compareTo(b) <= 0;
     }
 
     /**
@@ -141,10 +129,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean eq(Integer a, Integer b) {
-        if (null == a || null == b) {
-            return false;
-        }
-        return a.compareTo(b) == 0;
+        return a != null && b != null && a.compareTo(b) == 0;
     }
 
     /**
@@ -153,10 +138,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean eq(Long a, Long b) {
-        if (null == a || null == b) {
-            return false;
-        }
-        return a.compareTo(b) == 0;
+        return a != null && b != null && a.compareTo(b) == 0;
     }
 
     /**
@@ -165,10 +147,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean gt(Integer a, Integer b) {
-        if (null == a || null == b) {
-            return false;
-        }
-        return a.compareTo(b) > 0;
+        return a != null && b != null && a.compareTo(b) > 0;
     }
 
     /**
@@ -177,10 +156,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean gt(Long a, Long b) {
-        if (null == a || null == b) {
-            return false;
-        }
-        return a.compareTo(b) > 0;
+        return a != null && b != null && a.compareTo(b) > 0;
     }
 
     /**
@@ -189,10 +165,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean ge(Integer a, Integer b) {
-        if (null == a || null == b) {
-            return false;
-        }
-        return a.compareTo(b) >= 0;
+        return a != null && b != null && a.compareTo(b) >= 0;
     }
 
     /**
@@ -201,10 +174,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean ge(Long a, Long b) {
-        if (null == a || null == b) {
-            return false;
-        }
-        return a.compareTo(b) >= 0;
+        return a != null && b != null && a.compareTo(b) >= 0;
     }
 }
 
