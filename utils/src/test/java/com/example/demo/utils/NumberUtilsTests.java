@@ -61,6 +61,22 @@ public class NumberUtilsTests {
     }
 
     @ParameterizedTest
+    @MethodSource(value = "isPositiveOrZeroLongParams")
+    public void isPositiveOrZero(Long value, boolean expect) {
+        boolean result = NumberUtils.isPositiveOrZero(value);
+        Assertions.assertEquals(result, expect);
+    }
+
+    public static List<Arguments> isPositiveOrZeroLongParams() {
+        return Arrays.asList(
+                Arguments.arguments(null, false),
+                Arguments.arguments(-1L, false),
+                Arguments.arguments(0L, true),
+                Arguments.arguments(1L, true)
+        );
+    }
+
+    @ParameterizedTest
     @MethodSource(value = "isNegativeIntegerParams")
     public void isNegative(Integer value, boolean expect) {
         boolean result = NumberUtils.isNegative(value);
