@@ -14,10 +14,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean isPositive(Integer value) {
-        if (null == value) {
-            return false;
-        }
-        return value > 0;
+        return value != null && value > 0;
     }
 
     /**
@@ -27,10 +24,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean isPositive(Long value) {
-        if (null == value) {
-            return false;
-        }
-        return value > 0L;
+        return value != null && value > 0L;
     }
 
     /**
@@ -40,10 +34,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean isPositiveOrZero(Integer value) {
-        if (null == value) {
-            return false;
-        }
-        return value >= 0;
+        return value != null && value >= 0;
     }
 
     /**
@@ -53,10 +44,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean isPositiveOrZero(Long value) {
-        if (null == value) {
-            return false;
-        }
-        return value >= 0L;
+        return value != null && value >= 0L;
     }
 
     /**
@@ -66,10 +54,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean isNegative(Integer value) {
-        if (null == value) {
-            return false;
-        }
-        return value < 0;
+        return value != null && value < 0;
     }
 
     /**
@@ -79,10 +64,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean isNegative(Long value) {
-        if (null == value) {
-            return false;
-        }
-        return value < 0L;
+        return value != null && value < 0L;
     }
 
     /**
@@ -92,10 +74,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean isNegativeOrZero(Integer value) {
-        if (null == value) {
-            return false;
-        }
-        return value <= 0;
+        return value != null && value <= 0;
     }
 
     /**
@@ -105,10 +84,7 @@ public class NumberUtils {
      * @return true or false
      */
     public static boolean isNegativeOrZero(Long value) {
-        if (null == value) {
-            return false;
-        }
-        return value <= 0L;
+        return value != null && value <= 0L;
     }
 
     /**
