@@ -3,3 +3,4 @@ mybatis-plus:
     db-config:
       logic-delete-value: now()
       logic-not-delete-value: 'NULL'
+  type-enums-package: com.example.demo.enums
