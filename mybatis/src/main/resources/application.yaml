@@ -5,6 +5,8 @@ mybatis-plus:
       logic-not-delete-value: 'NULL'
   type-enums-package: com.example.demo.enums
   mapper-locations: classpath*:/mapper/**/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 spring:
   profiles:
     default: test
