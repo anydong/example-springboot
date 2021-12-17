@@ -1,7 +1,7 @@
-package com.example.infrastructure.mapper;
+package com.example.cola.infrastructure.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.infrastructure.po.UserPO;
+import com.example.cola.infrastructure.po.UserPO;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,4 +9,5 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public interface UserMapper extends BaseMapper<UserPO> {
+    UserPO find(Long id);
 }

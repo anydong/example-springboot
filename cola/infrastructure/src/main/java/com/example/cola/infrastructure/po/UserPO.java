@@ -1,12 +1,14 @@
-package com.example.infrastructure.po;
+package com.example.cola.infrastructure.po;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 /**
  * @author where
  */
+@Data
 @TableName(value = "user")
 public class UserPO {
     @TableId(type = IdType.AUTO)
