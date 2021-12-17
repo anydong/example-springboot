@@ -6,6 +6,9 @@ import com.example.cola.infrastructure.mapper.UserMapper;
 import com.example.cola.infrastructure.po.UserPO;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author where
+ */
 @Component
 public class UserDaoImpl extends ServiceImpl<UserMapper, UserPO> implements IService<UserPO> {
 
