@@ -22,9 +22,9 @@ public class JsonUtils {
     static {
         MAPPER.registerModule(new JavaTimeModule());
         MAPPER.registerModule(new SimpleModule());
-        // https://github.com/FasterXML/jackson-databind/wiki/Serialization-Features#:~:text=Error%20handling-,FAIL_ON_EMPTY_BEANS,-(default%3A%20true)
-        MAPPER.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
         // https://github.com/FasterXML/jackson-databind/wiki/Serialization-Features#:~:text=Generic%20output%20features-,WRAP_ROOT_VALUE,-(default%3A%20false)
+        MAPPER.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        // https://github.com/FasterXML/jackson-databind/wiki/Serialization-Features#:~:text=WRITE_DATES_AS_TIMESTAMPS
         MAPPER.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         // https://github.com/FasterXML/jackson-databind/wiki/Serialization-Features#:~:text=WRITE_DATES_AS_TIMESTAMPS
         MAPPER.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
