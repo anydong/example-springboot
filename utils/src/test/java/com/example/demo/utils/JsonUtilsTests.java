@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -19,6 +21,8 @@ public class JsonUtilsTests {
     public void toJSONString() {
         User user = new User();
         user.setUsername("username");
+        user.setUpdatedAt(LocalDateTime.now());
+        user.setCreatedAt(new Date());
         String json = JsonUtils.toJSONString(user);
         log.info(json);
         Assertions.assertNotNull(json);
@@ -48,7 +52,10 @@ public class JsonUtilsTests {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class User {
+        private Long id;
         private String username;
         private String password;
+        private LocalDateTime updatedAt;
+        private Date createdAt;
     }
 }
