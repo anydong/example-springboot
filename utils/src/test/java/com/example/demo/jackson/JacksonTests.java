@@ -2,6 +2,7 @@ package com.example.demo.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
@@ -31,6 +32,7 @@ public class JacksonTests {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Timer {
+        @JsonDeserialize(using = DateFromEpochSecondDeserializer.class)
         private Date date;
         private LocalDate localDate;
         private LocalTime localTime;
@@ -117,5 +119,17 @@ public class JacksonTests {
         Timer timer = Timer.builder().localDateTime(LocalDateTime.now()).build();
         String json = mapper.writeValueAsString(timer);
         log.info("{}", json);
+    }
+
+    @Test
+    public void numberToDate() throws JsonProcessingException {
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addDeserializer(Date.class, new DateFromEpochSecondDeserializer());
+        ObjectMapper mapper = new ObjectMapper();
+
+        String json = "{\"date\":164017733}";
+        Timer timer = mapper.readValue(json, Timer.class);
+
+        log.info("{}", timer);
     }
 }
