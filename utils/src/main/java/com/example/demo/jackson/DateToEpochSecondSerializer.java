@@ -19,8 +19,7 @@ public class DateToEpochSecondSerializer extends StdSerializer<Date> {
 
     @Override
     public void serialize(Date date, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        if (null != date) {
-            ZonedDateTime.now().toInstant().toEpochMilli();
+        if (date != null) {
             long second = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault()).toEpochSecond();
             jsonGenerator.writeNumber(second);
         }
