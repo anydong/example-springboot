@@ -25,7 +25,6 @@ import java.util.Date;
 @Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class JacksonTests {
-    private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Data
     @Builder
@@ -56,6 +55,9 @@ public class JacksonTests {
         log.info("{}", json);
     }
 
+    /**
+     * Date 转 10 位 timestamp
+     */
     @Test
     public void testDateToEpochSecond() throws JsonProcessingException {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
@@ -69,6 +71,9 @@ public class JacksonTests {
         log.info("{}", json);
     }
 
+    /**
+     * Date 转 13 位 timestamp
+     */
     @Test
     public void testDateToEpochMilli() throws JsonProcessingException {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
@@ -82,6 +87,9 @@ public class JacksonTests {
         log.info("{}", json);
     }
 
+    /**
+     * LocalDateTime 转 String
+     */
     @Test
     public void testLocalDatetimeToString() throws JsonProcessingException {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
