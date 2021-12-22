@@ -91,9 +91,25 @@ public class JacksonTests {
      * LocalDateTime 转 String
      */
     @Test
-    public void testLocalDatetimeToString() throws JsonProcessingException {
+    public void testLocalDateTimeToString() throws JsonProcessingException {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeSerializer(DateTimeFormatter.ISO_DATE_TIME));
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(javaTimeModule);
+
+        Timer timer = Timer.builder().localDateTime(LocalDateTime.now()).build();
+        String json = mapper.writeValueAsString(timer);
+        log.info("{}", json);
+    }
+
+    /**
+     * LocalDateTime 转 String
+     */
+    @Test
+    public void testLocalDateTimeToEpochSecond() throws JsonProcessingException {
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        javaTimeModule.addSerializer(LocalDateTime.class, new LocalDateTimeToEpochSecondSerializer());
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(javaTimeModule);
