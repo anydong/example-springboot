@@ -21,8 +21,8 @@ public class JsonUtilsTests {
     public void toJSONString() {
         User user = new User();
         user.setUsername("username");
-        user.setUpdatedAt(LocalDateTime.now());
-        user.setCreatedAt(new Date());
+        user.setLocalDateTime(LocalDateTime.now());
+        user.setDate(new Date());
         String json = JsonUtils.toJSONString(user);
         log.info(json);
         Assertions.assertNotNull(json);
@@ -30,9 +30,9 @@ public class JsonUtilsTests {
 
     @Test
     public void parseObject() {
-        String json = "{\"username\":\"username\",\"password\":null}";
+        String json = "{\"username\":\"username\",\"localDateTime\":1640225398162,\"date\":1640225398162}";
         User user = JsonUtils.parseObject(json, User.class);
-        log.info("username {}", user.getUsername());
+        log.info("{}", user);
         Assertions.assertNotNull(user);
     }
 
@@ -55,7 +55,7 @@ public class JsonUtilsTests {
         private Long id;
         private String username;
         private String password;
-        private LocalDateTime updatedAt;
-        private Date createdAt;
+        private LocalDateTime localDateTime;
+        private Date date;
     }
 }
