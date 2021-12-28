@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -42,6 +43,13 @@ public class JsonUtils {
         MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
+    /**
+     * 将对象转为 JSON 字符串
+     *
+     * @param object 待转化的对象
+     * @return 字符串
+     */
+    @Nullable
     @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
     public static String toJSONString(Object object) {
         try {
@@ -52,6 +60,15 @@ public class JsonUtils {
         return null;
     }
 
+    /**
+     * 将 JSON 字符串解析为指定对象
+     *
+     * @param json  JSON 字符串
+     * @param clazz 目标类
+     * @param <T>   目标类
+     * @return 结果
+     */
+    @Nullable
     public static <T> T parseObject(String json, Class<T> clazz) {
         try {
             return MAPPER.readValue(json, clazz);
@@ -61,6 +78,15 @@ public class JsonUtils {
         return null;
     }
 
+    /**
+     * 将 JSON 字符串转为数组结果对象
+     *
+     * @param json  JSON 字符串
+     * @param clazz 目标类
+     * @param <T>   目标类
+     * @return 结果
+     */
+    @Nullable
     public static <T> List<T> parseArray(String json, Class<T> clazz) {
         try {
             JavaType type = MAPPER.getTypeFactory().constructParametricType(ArrayList.class, clazz);
