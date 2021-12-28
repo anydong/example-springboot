@@ -1,4 +1,4 @@
-package com.example.cola.infrastructure.config;
+package com.example.cola.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
