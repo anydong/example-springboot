@@ -7,7 +7,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ import java.util.List;
  *
  * @author where
  */
-@Slf4j
 public class JsonUtils {
+    private static final Logger log = LoggerFactory.getLogger(JsonUtils.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     static {
