@@ -1,0 +1,49 @@
+package com.example.demo.common.response;
+
+import com.alibaba.cola.dto.SingleResponse;
+import com.example.demo.common.enums.BizExceptionEnums;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.*;
+
+/**
+ * @author where.liu
+ */
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class ValidationResponse extends SingleResponse<Map<String, List<String>>> {
+    @JsonInclude(Include.NON_EMPTY)
+    private Map<String, List<String>> data;
+
+    public static ValidationResponse buildFailure() {
+        return buildFailure(BizExceptionEnums.USER_INVALID_INPUT.getErrCode(),
+                BizExceptionEnums.USERNAME_IS_EXISTS.getErrMessage());
+    }
+
+    public static ValidationResponse buildFailure(String errCode, String errMessage) {
+        ValidationResponse response = new ValidationResponse();
+        response.setSuccess(false);
+        response.setErrCode(errCode);
+        response.setErrMessage(errMessage);
+        response.setData(Collections.emptyMap());
+        return response;
+    }
+
+    public static ValidationResponse of(Map<String, List<String>> data) {
+        ValidationResponse validationResponse = buildFailure();
+        validationResponse.setData(data);
+        return validationResponse;
+    }
+
+    public void addError(String field, String message) {
+        if (null == data) {
+            data = new HashMap<>(16);
+        }
+        List<String> messages = data.getOrDefault(field, new ArrayList<>());
+        messages.add(message);
+        data.put(field, messages);
+    }
+}

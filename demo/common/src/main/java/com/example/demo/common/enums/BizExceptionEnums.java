@@ -30,6 +30,7 @@ public enum BizExceptionEnums {
     USER_LOGIN_FAILURE("A0200", "用户登陆异常"),
     USER_NOT_EXISTS("A0201", "用户账户不存在"),
     USER_PASSWORD_ERROR("A0210", "用户密码错误"),
+    USER_INVALID_INPUT("A0430", "用户输入内容非法"),
     /**
      * 一级宏观错误码
      */
