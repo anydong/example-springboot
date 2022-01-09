@@ -34,4 +34,6 @@ public interface UserInfoGatewayI {
      */
     @Nullable
     UserDTO getByUsername(String username);
+
+    UserDTO getById(Long userId);
 }

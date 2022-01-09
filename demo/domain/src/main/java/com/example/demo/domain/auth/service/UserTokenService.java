@@ -5,6 +5,7 @@ import com.example.demo.common.enums.BizExceptionEnums;
 import com.example.demo.common.exception.BizException;
 import com.example.demo.domain.dto.UserDTO;
 import com.example.demo.domain.dto.UserTokenDTO;
+import com.example.demo.domain.gateway.UserInfoGatewayI;
 import com.example.demo.domain.gateway.UserTokenGatewayI;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -22,10 +23,12 @@ import java.time.temporal.ChronoUnit;
 @Service
 public class UserTokenService {
     private final UserTokenGatewayI userTokenGatewayI;
+    private final UserInfoGatewayI userInfoGatewayI;
 
     @Autowired
-    public UserTokenService(UserTokenGatewayI userTokenGatewayI) {
+    public UserTokenService(UserTokenGatewayI userTokenGatewayI, UserInfoGatewayI userInfoGatewayI) {
         this.userTokenGatewayI = userTokenGatewayI;
+        this.userInfoGatewayI = userInfoGatewayI;
     }
 
     @NonNull
@@ -41,5 +44,13 @@ public class UserTokenService {
         }
         log.error("user token create failure {}", userTokenDTO);
         throw new BizException(BizExceptionEnums.SYSTEM_EXECUTE_ERROR);
+    }
+
+    public UserDTO getUserByToken(String token) {
+        UserTokenDTO userTokenDTO = userTokenGatewayI.getByToken(token);
+        if (null == userTokenDTO) {
+            return null;
+        }
+        return userInfoGatewayI.getById(userTokenDTO.getUserId());
     }
 }

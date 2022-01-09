@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author where
+ */
 @Component
 public class UserTokenGatewayImpl implements UserTokenGatewayI {
     private final UserTokenConvertor userTokenConvertor;
@@ -27,12 +30,12 @@ public class UserTokenGatewayImpl implements UserTokenGatewayI {
         if (result) {
             userTokenDTO.setId(userTokenPO.getId());
         }
-
     }
 
     @Override
     @Nullable
     public UserTokenDTO getByToken(String token) {
-        return null;
+        UserTokenPO userTokenPO = userTokenDao.getByToken(token);
+        return userTokenConvertor.of(userTokenPO);
     }
 }
