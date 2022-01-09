@@ -1,6 +1,8 @@
 package com.example.demo.domain.gateway;
 
 import com.example.demo.domain.auth.request.UserRegisterCmd;
+import com.example.demo.domain.dto.UserDTO;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,4 +25,13 @@ public interface UserInfoGatewayI {
      * @return 返回注册成功的 id
      */
     Long createUser(UserRegisterCmd cmd);
+
+    /**
+     * 根据用户名获取用户
+     *
+     * @param username 用户名
+     * @return 用户
+     */
+    @Nullable
+    UserDTO getByUsername(String username);
 }
