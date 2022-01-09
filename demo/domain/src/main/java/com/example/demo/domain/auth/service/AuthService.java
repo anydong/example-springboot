@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.lang.Nullable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,11 +23,13 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     private final ApplicationContext applicationContext;
     private final UserInfoGatewayI userInfoGatewayI;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthService(ApplicationContext applicationContext, UserInfoGatewayI userInfoGatewayI) {
+    public AuthService(ApplicationContext applicationContext, UserInfoGatewayI userInfoGatewayI, PasswordEncoder passwordEncoder) {
         this.applicationContext = applicationContext;
         this.userInfoGatewayI = userInfoGatewayI;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -43,6 +46,7 @@ public class AuthService {
             applicationContext.publishEvent(new UserRegisterFailureEvent(this, cmd, BizExceptionEnums.USERNAME_IS_EXISTS));
             throw new BizException(BizExceptionEnums.USERNAME_IS_EXISTS);
         }
+        cmd.setPassword(passwordEncoder.encode(cmd.getPassword()));
         Long id = userInfoGatewayI.createUser(cmd);
         if (NumberUtils.isPositive(id)) {
             UserDTO userDTO = UserDTO.builder().id(id).username(cmd.getUsername()).build();

@@ -1,4 +1,4 @@
-package com.example.demo.infrastructure.po;
+package com.example.demo.infrastructure.dataobject;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -10,7 +10,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName(value = "user")
-public class UserPO extends BasePO {
+public class UserDO extends BaseDO {
     private String username;
     private String password;
 }

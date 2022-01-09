@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.demo.base.constants.MybatisPlusConstants;
+import com.example.demo.infrastructure.dataobject.UserTokenDO;
 import com.example.demo.infrastructure.mapper.UserTokenMapper;
-import com.example.demo.infrastructure.po.UserTokenPO;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
  * @author where
  */
 @Service
-public class UserTokenDaoImpl extends ServiceImpl<UserTokenMapper, UserTokenPO> implements IService<UserTokenPO> {
+public class UserTokenDaoImpl extends ServiceImpl<UserTokenMapper, UserTokenDO> implements IService<UserTokenDO> {
     @Nullable
-    public UserTokenPO getByToken(String token) {
-        LambdaQueryWrapper<UserTokenPO> queryWrapper = Wrappers.lambdaQuery();
-        queryWrapper.eq(UserTokenPO::getToken, token);
+    public UserTokenDO getByToken(String token) {
+        LambdaQueryWrapper<UserTokenDO> queryWrapper = Wrappers.lambdaQuery();
+        queryWrapper.eq(UserTokenDO::getToken, token);
         queryWrapper.last(MybatisPlusConstants.LIMIT_ONE);
         return baseMapper.selectOne(queryWrapper);
     }

@@ -4,7 +4,7 @@ import com.example.demo.domain.dto.UserTokenDTO;
 import com.example.demo.domain.gateway.UserTokenGatewayI;
 import com.example.demo.infrastructure.convertor.UserTokenConvertor;
 import com.example.demo.infrastructure.dao.UserTokenDaoImpl;
-import com.example.demo.infrastructure.po.UserTokenPO;
+import com.example.demo.infrastructure.dataobject.UserTokenDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class UserTokenGatewayImpl implements UserTokenGatewayI {
 
     @Override
     public void createToken(UserTokenDTO userTokenDTO) {
-        UserTokenPO userTokenPO = userTokenConvertor.of(userTokenDTO);
+        UserTokenDO userTokenPO = userTokenConvertor.of(userTokenDTO);
         boolean result = userTokenDao.save(userTokenPO);
         if (result) {
             userTokenDTO.setId(userTokenPO.getId());
@@ -35,7 +35,7 @@ public class UserTokenGatewayImpl implements UserTokenGatewayI {
     @Override
     @Nullable
     public UserTokenDTO getByToken(String token) {
-        UserTokenPO userTokenPO = userTokenDao.getByToken(token);
+        UserTokenDO userTokenPO = userTokenDao.getByToken(token);
         return userTokenConvertor.of(userTokenPO);
     }
 }

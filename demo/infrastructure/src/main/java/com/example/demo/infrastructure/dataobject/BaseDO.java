@@ -1,4 +1,4 @@
-package com.example.demo.infrastructure.po;
+package com.example.demo.infrastructure.dataobject;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @author where
  */
 @Data
-public class BasePO {
+public class BaseDO {
     @TableId(type = IdType.AUTO)
     private Long id;
     @Version
