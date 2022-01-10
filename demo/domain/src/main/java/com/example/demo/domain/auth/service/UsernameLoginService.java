@@ -1,7 +1,7 @@
 package com.example.demo.domain.auth.service;
 
 import com.example.demo.common.enums.BizExceptionEnums;
-import com.example.demo.common.exception.BizException;
+import com.example.demo.common.helper.BizExceptionHelper;
 import com.example.demo.domain.auth.event.UserLoginFailureEvent;
 import com.example.demo.domain.auth.request.UsernameLoginQry;
 import com.example.demo.domain.dto.UserDTO;
@@ -37,12 +37,12 @@ public class UsernameLoginService {
         UserDTO userDTO = userInfoGatewayI.getByUsername(qry.getUsername());
         if (null == userDTO) {
             applicationContext.publishEvent(new UserLoginFailureEvent(this, qry, BizExceptionEnums.USER_NOT_EXISTS));
-            throw new BizException(BizExceptionEnums.USER_NOT_EXISTS);
+            throw BizExceptionHelper.of(BizExceptionEnums.USER_NOT_EXISTS);
         }
         boolean isMatches = passwordEncoder.matches(qry.getPassword(), userDTO.getPassword());
         if (!isMatches) {
             applicationContext.publishEvent(new UserLoginFailureEvent(this, qry, userDTO, BizExceptionEnums.USER_PASSWORD_ERROR));
-            throw new BizException(BizExceptionEnums.USER_PASSWORD_ERROR);
+            throw BizExceptionHelper.of(BizExceptionEnums.USER_PASSWORD_ERROR);
         }
         UserTokenDTO userTokenDTO = userTokenService.createToken(userDTO);
         return userTokenDTO.getToken();

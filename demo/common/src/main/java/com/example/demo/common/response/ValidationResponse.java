@@ -1,6 +1,7 @@
 package com.example.demo.common.response;
 
 import com.alibaba.cola.dto.SingleResponse;
+import com.example.demo.base.constants.Constants;
 import com.example.demo.common.enums.BizExceptionEnums;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -15,7 +16,7 @@ import java.util.*;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ValidationResponse extends SingleResponse<Map<String, List<String>>> {
-    @JsonInclude(Include.NON_EMPTY)
+    @JsonInclude
     private Map<String, List<String>> data;
 
     public static ValidationResponse buildFailure() {
@@ -28,7 +29,7 @@ public class ValidationResponse extends SingleResponse<Map<String, List<String>>
         response.setSuccess(false);
         response.setErrCode(errCode);
         response.setErrMessage(errMessage);
-        response.setData(Collections.emptyMap());
+        response.setData(new HashMap<>(Constants.DEFAULT_INITIAL_CAPACITY));
         return response;
     }
 
@@ -40,7 +41,7 @@ public class ValidationResponse extends SingleResponse<Map<String, List<String>>
 
     public void addError(String field, String message) {
         if (null == data) {
-            data = new HashMap<>(16);
+            data = new HashMap<>(Constants.DEFAULT_INITIAL_CAPACITY);
         }
         List<String> messages = data.getOrDefault(field, new ArrayList<>());
         messages.add(message);
