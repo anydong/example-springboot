@@ -22,13 +22,13 @@ import java.util.Set;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = Equals.EqualsValidator.class)
 public @interface Equals {
+    String[] properties() default {};
+
     String message() default "属性不相等";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
-    String[] properties() default {};
 
     @Slf4j
     class EqualsValidator implements ConstraintValidator<Equals, Object> {

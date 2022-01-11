@@ -2,8 +2,10 @@ package com.example.demo.adapter.logic;
 
 import com.alibaba.cola.dto.Response;
 import com.alibaba.cola.dto.SingleResponse;
+import com.example.demo.adapter.convertor.UserRegisterCmdConvertor;
 import com.example.demo.adapter.convertor.UsernameLoginQryConvertor;
 import com.example.demo.adapter.model.request.UsernameLoginCmd;
+import com.example.demo.adapter.model.request.UsernameRegisterCmd;
 import com.example.demo.adapter.model.response.LoginTokenVO;
 import com.example.demo.common.enums.BizExceptionEnums;
 import com.example.demo.common.helper.ResponseHelper;
@@ -22,18 +24,22 @@ public class AuthLogic {
     private final AuthService authService;
     private final UsernameLoginService usernameLoginService;
     private final UsernameLoginQryConvertor usernameLoginQryConvertor;
+    private final UserRegisterCmdConvertor userRegisterCmdConvertor;
 
     @Autowired
     public AuthLogic(AuthService authService,
                      UsernameLoginService usernameLoginService,
-                     UsernameLoginQryConvertor usernameLoginQryConvertor) {
+                     UsernameLoginQryConvertor usernameLoginQryConvertor,
+                     UserRegisterCmdConvertor userRegisterCmdConvertor) {
         this.authService = authService;
         this.usernameLoginService = usernameLoginService;
         this.usernameLoginQryConvertor = usernameLoginQryConvertor;
+        this.userRegisterCmdConvertor = userRegisterCmdConvertor;
     }
 
-    public Response register(UserRegisterCmd cmd) {
-        UserDTO userDTO = authService.register(cmd);
+    public Response register(UsernameRegisterCmd cmd) {
+        UserRegisterCmd userRegisterCmd = userRegisterCmdConvertor.of(cmd);
+        UserDTO userDTO = authService.register(userRegisterCmd);
         if (null != userDTO) {
             return Response.buildSuccess();
         }

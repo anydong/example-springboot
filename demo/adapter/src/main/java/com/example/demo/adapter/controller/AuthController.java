@@ -3,6 +3,7 @@ package com.example.demo.adapter.controller;
 import com.alibaba.cola.dto.Response;
 import com.alibaba.cola.dto.SingleResponse;
 import com.example.demo.adapter.model.request.UsernameLoginCmd;
+import com.example.demo.adapter.model.request.UsernameRegisterCmd;
 import com.example.demo.domain.auth.request.UserRegisterCmd;
 import com.example.demo.adapter.logic.AuthLogic;
 import com.example.demo.adapter.model.response.LoginTokenVO;
@@ -28,7 +29,7 @@ public class AuthController {
     }
 
     @PostMapping(value = "/register", name = "用户注册")
-    public Response register(@Valid @RequestBody UserRegisterCmd cmd) {
+    public Response register(@Valid @RequestBody UsernameRegisterCmd cmd) {
         return authLogic.register(cmd);
     }
 
