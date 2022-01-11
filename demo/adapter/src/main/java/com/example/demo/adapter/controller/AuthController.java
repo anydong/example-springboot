@@ -1,11 +1,11 @@
-package com.example.demo.controller;
+package com.example.demo.adapter.controller;
 
 import com.alibaba.cola.dto.Response;
 import com.alibaba.cola.dto.SingleResponse;
+import com.example.demo.adapter.model.request.UsernameLoginCmd;
 import com.example.demo.domain.auth.request.UserRegisterCmd;
-import com.example.demo.logic.AuthLogic;
-import com.example.demo.model.request.UsernameLoginCmd;
-import com.example.demo.model.response.LoginTokenVO;
+import com.example.demo.adapter.logic.AuthLogic;
+import com.example.demo.adapter.model.response.LoginTokenVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +32,7 @@ public class AuthController {
         return authLogic.register(cmd);
     }
 
+    @PostMapping(value = "/login", name = "登录")
     public SingleResponse<LoginTokenVO> login(@Valid @RequestBody UsernameLoginCmd cmd) {
         return authLogic.login(cmd);
     }

@@ -9,6 +9,7 @@
         <module>domain</module>
         <module>web</module>
         <module>common</module>
+        <module>adapter</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

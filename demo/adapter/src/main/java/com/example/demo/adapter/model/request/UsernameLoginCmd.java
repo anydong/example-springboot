@@ -1,4 +1,4 @@
-package com.example.demo.model.request;
+package com.example.demo.adapter.model.request;
 
 import com.alibaba.cola.dto.Command;
 import lombok.Data;

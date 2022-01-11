@@ -1,7 +1,7 @@
-package com.example.demo.convertor;
+package com.example.demo.adapter.convertor;
 
+import com.example.demo.adapter.model.request.UsernameLoginCmd;
 import com.example.demo.domain.auth.request.UsernameLoginQry;
-import com.example.demo.model.request.UsernameLoginCmd;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

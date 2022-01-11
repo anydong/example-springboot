@@ -1,4 +1,4 @@
-package com.example.demo.model.response;
+package com.example.demo.adapter.model.response;
 
 import com.alibaba.cola.dto.DTO;
 import lombok.*;
