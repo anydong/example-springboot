@@ -308,9 +308,9 @@ public class NumberUtilsTests {
 
     @Test
     public void eq() {
-        double a = 200.0000000001;
-        int b = 200;
-        Assertions.assertTrue(NumberUtils.eq(a, b));
+        double a = Double.MAX_VALUE;
+        long b = Long.MAX_VALUE;
+        Assertions.assertTrue(NumberUtils.gt(a, b));
     }
 
     @Test
