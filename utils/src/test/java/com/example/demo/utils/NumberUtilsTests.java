@@ -319,8 +319,8 @@ public class NumberUtilsTests {
         Assertions.assertFalse(NumberUtils.isPositive(Short.MIN_VALUE));
         Assertions.assertFalse(NumberUtils.isPositive(Integer.MIN_VALUE));
         Assertions.assertFalse(NumberUtils.isPositive(Long.MIN_VALUE));
-        Assertions.assertFalse(NumberUtils.isPositive(-Float.MIN_VALUE));
-        Assertions.assertFalse(NumberUtils.isPositive(-Double.MIN_VALUE));
+        Assertions.assertFalse(NumberUtils.isPositive(-Float.MAX_VALUE));
+        Assertions.assertFalse(NumberUtils.isPositive(-Double.MAX_VALUE));
 
         Assertions.assertTrue(NumberUtils.isPositive(Byte.MAX_VALUE));
         Assertions.assertTrue(NumberUtils.isPositive(Short.MAX_VALUE));
