@@ -1,21 +1,16 @@
-package com.example.demo.utils;
+package com.example.demo.base.utils;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@Slf4j
 public class NumberUtilsTests {
-
     @ParameterizedTest
     @MethodSource(value = "isPositiveIntegerParams")
     public void isPositive(Integer value, boolean expect) {
