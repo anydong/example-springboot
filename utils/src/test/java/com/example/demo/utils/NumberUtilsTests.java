@@ -1,6 +1,8 @@
 package com.example.demo.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -11,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@Slf4j
 public class NumberUtilsTests {
 
     @ParameterizedTest
@@ -301,5 +304,24 @@ public class NumberUtilsTests {
     public void ge(Long a, Long b, boolean expect) {
         boolean result = NumberUtils.ge(a, b);
         Assertions.assertEquals(result, expect);
+    }
+
+    @Test
+    public void isPositiveNumber() {
+        Assertions.assertFalse(NumberUtils.isPositive(Byte.MIN_VALUE));
+        Assertions.assertFalse(NumberUtils.isPositive(Short.MIN_VALUE));
+        Assertions.assertFalse(NumberUtils.isPositive(Integer.MIN_VALUE));
+        Assertions.assertFalse(NumberUtils.isPositive(Long.MIN_VALUE));
+        Assertions.assertFalse(NumberUtils.isPositive(-Float.MIN_VALUE));
+        Assertions.assertFalse(NumberUtils.isPositive(-Double.MIN_VALUE));
+
+        Assertions.assertTrue(NumberUtils.isPositive(Byte.MAX_VALUE));
+        Assertions.assertTrue(NumberUtils.isPositive(Short.MAX_VALUE));
+        Assertions.assertTrue(NumberUtils.isPositive(Integer.MAX_VALUE));
+        Assertions.assertTrue(NumberUtils.isPositive(Long.MAX_VALUE));
+        Assertions.assertTrue(NumberUtils.isPositive(Float.MIN_VALUE));
+        Assertions.assertTrue(NumberUtils.isPositive(Float.MAX_VALUE));
+        Assertions.assertTrue(NumberUtils.isPositive(Double.MIN_VALUE));
+        Assertions.assertTrue(NumberUtils.isPositive(Double.MAX_VALUE));
     }
 }
