@@ -1,50 +1,50 @@
 package com.example.demo.utils;
 
 /**
- * Number 类型值校验
- * 只做数值判断，不做数据类型判断
+ * Number 类型值校验, 只做数值判断，不做数据类型判断
+ * 支持入参数据类型：byte, short, int, long, float, double
  *
  * @author where.liu
  */
 public class NumberUtils {
     /**
-     * 校验 Integer 是否为 > 0 的正整数
+     * 校验入参是否为 > 0 的正数
      *
-     * @param number 待校验的值，可以为 null
+     * @param a 待校验的值，可以为 null
      * @return true or false
      */
-    public static boolean isPositive(Number number) {
-        return null != number && Double.compare(number.doubleValue(), 0.0) > 0;
+    public static boolean isPositive(Number a) {
+        return null != a && Double.compare(a.doubleValue(), 0.0) > 0;
     }
 
     /**
-     * 校验 Integer 是否为 >= 0 的正整数
+     * 校验入参是否为 >= 0 的正数
      *
-     * @param number 待校验的值，可以为 null
+     * @param a 待校验的值，可以为 null
      * @return true or false
      */
-    public static boolean isPositiveOrZero(Number number) {
-        return null != number && Double.compare(number.doubleValue(), 0.0) >= 0;
+    public static boolean isPositiveOrZero(Number a) {
+        return null != a && Double.compare(a.doubleValue(), 0.0) >= 0;
     }
 
     /**
-     * 校验 Integer 是否为 < 0 的整数
+     * 校验入参是否为 < 0 的负数
      *
-     * @param number 待校验的值，可以为 null
+     * @param a 待校验的值，可以为 null
      * @return true or false
      */
-    public static boolean isNegative(Number number) {
-        return null != number && Double.compare(number.doubleValue(), 0.0) < 0;
+    public static boolean isNegative(Number a) {
+        return null != a && Double.compare(a.doubleValue(), 0.0) < 0;
     }
 
     /**
-     * 校验 Integer 是否为 <= 0 的整数
+     * 校验入参是否为 <= 0 的负数
      *
-     * @param number 待校验的值，可以为 null
+     * @param a 待校验的值，可以为 null
      * @return true or false
      */
-    public static boolean isNegativeOrZero(Number number) {
-        return null != number && Double.compare(number.doubleValue(), 0.0) <= 0;
+    public static boolean isNegativeOrZero(Number a) {
+        return null != a && Double.compare(a.doubleValue(), 0.0) <= 0;
     }
 
     /**
