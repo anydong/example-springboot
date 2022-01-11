@@ -307,6 +307,13 @@ public class NumberUtilsTests {
     }
 
     @Test
+    public void eq() {
+        double a = 200.0000000001;
+        int b = 200;
+        Assertions.assertTrue(NumberUtils.eq(a, b));
+    }
+
+    @Test
     public void isPositiveNumber() {
         Assertions.assertFalse(NumberUtils.isPositive(Byte.MIN_VALUE));
         Assertions.assertFalse(NumberUtils.isPositive(Short.MIN_VALUE));

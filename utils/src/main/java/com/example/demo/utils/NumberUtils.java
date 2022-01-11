@@ -2,6 +2,7 @@ package com.example.demo.utils;
 
 /**
  * Number 类型值校验
+ * 只做数值判断，不做数据类型判断
  *
  * @author where.liu
  */
