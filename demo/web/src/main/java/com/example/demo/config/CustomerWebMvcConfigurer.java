@@ -11,8 +11,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class CustomerWebMvcConfigurer implements WebMvcConfigurer {
+    private final ApiAuthInterceptor apiAuthInterceptor;
+
     @Autowired
-    private ApiAuthInterceptor apiAuthInterceptor;
+    public CustomerWebMvcConfigurer(ApiAuthInterceptor apiAuthInterceptor) {
+        this.apiAuthInterceptor = apiAuthInterceptor;
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
