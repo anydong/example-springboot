@@ -3,6 +3,7 @@ package com.example.demo.interceptor;
 import com.alibaba.cola.dto.Response;
 import com.example.demo.base.constants.HttpHeaderConstants;
 import com.example.demo.base.utils.JSONUtils;
+import com.example.demo.common.AuthContext;
 import com.example.demo.common.enums.BizExceptionEnums;
 import com.example.demo.common.helper.ResponseHelper;
 import com.example.demo.domain.auth.service.UserTokenService;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,10 +43,12 @@ public class ApiAuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String authorization = request.getHeader(HttpHeaderConstants.AUTHORIZATION);
+        log.debug("authorization {}", authorization);
         if (StringUtils.startsWith(authorization, BEARER_TOKEN_PREFIX)) {
             String token = StringUtils.substringAfter(authorization, BEARER_TOKEN_PREFIX);
             UserDTO userDTO = userTokenService.getUserByToken(token);
             if (null != userDTO) {
+                AuthContext.setUserId(userDTO.getId());
                 log.info("{}", JSONUtils.toJSONString(userDTO));
                 return true;
             }
@@ -52,6 +56,11 @@ public class ApiAuthInterceptor implements HandlerInterceptor {
         dealInvalidTokenResponse(response);
 
         return false;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        AuthContext.removeUserId();
     }
 
     private void dealInvalidTokenResponse(HttpServletResponse response) {
