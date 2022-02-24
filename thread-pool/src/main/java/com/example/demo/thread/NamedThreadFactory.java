@@ -2,7 +2,7 @@ package com.example.demo.thread;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -11,16 +11,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class NamedThreadFactory implements ThreadFactory {
     private final String name;
-    private static final AtomicInteger COUNTER = new AtomicInteger(0);
+    private final AtomicInteger counter;
 
     public NamedThreadFactory(String name) {
         this.name = name;
+        this.counter = new AtomicInteger(0);
     }
 
     @Override
     public Thread newThread(Runnable r) {
-        log.info("{}", COUNTER.get());
-
-        return new Thread(r, name + "-THREAD_POOL-" + COUNTER.getAndAdd(1));
+        return new Thread(r, "THREAD-POOL_" + name + "_" + counter.addAndGet(1));
     }
 }
