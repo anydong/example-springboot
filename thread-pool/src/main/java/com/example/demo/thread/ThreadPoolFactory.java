@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
  * @author where
  */
 public class ThreadPoolFactory {
+    private static final Integer CPU_NUM = Runtime.getRuntime().availableProcessors();
     private static final Integer KEEP_ALIVE_TIME_DEFAULT = 1000;
     private static final TimeUnit TIME_UNIT_DEFAULT = TimeUnit.MILLISECONDS;
 
@@ -63,5 +64,16 @@ public class ThreadPoolFactory {
                 TIME_UNIT_DEFAULT,
                 new LinkedBlockingQueue<>(),
                 new NamedThreadFactory(namePrefix));
+    }
+
+    public static ThreadPoolExecutor make(String namePrefix, int workQueueSize) {
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(CPU_NUM * 2,
+                CPU_NUM * 2,
+                KEEP_ALIVE_TIME_DEFAULT,
+                TIME_UNIT_DEFAULT,
+                new ResizableCapacityLinkedBlockingQueue<>(workQueueSize),
+                new NamedThreadFactory(namePrefix));
+        threadPoolExecutor.allowCoreThreadTimeOut(true);
+        return threadPoolExecutor;
     }
 }
