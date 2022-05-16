@@ -11,6 +11,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
+/**
+ * https://juejin.cn/post/6844904121883951117
+ * https://docs.spring.io/spring-framework/docs/4.3.15.RELEASE/spring-framework-reference/html/aop.html
+ */
 @Aspect
 @Component
 @Slf4j
