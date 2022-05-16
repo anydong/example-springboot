@@ -16,25 +16,40 @@ import javax.annotation.PreDestroy;
 @Component
 @Slf4j
 public class LifecycleBean implements InitializingBean, DisposableBean {
+    /**
+     * step 1
+     */
     public LifecycleBean() {
         log.info("construct");
     }
 
+    /**
+     * step 2
+     */
     @PostConstruct
     public void postConstruct() {
         log.info("postConstruct");
     }
 
+    /**
+     * step 3
+     */
     @Override
     public void afterPropertiesSet() throws Exception {
         log.info("afterPropertiesSet");
     }
 
+    /**
+     * step 4
+     */
     @PreDestroy
     public void preDestroy() {
         log.info("preDestroy");
     }
 
+    /**
+     * step 5
+     */
     @Override
     public void destroy() throws Exception {
         log.info("destroy");
