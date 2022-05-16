@@ -23,7 +23,6 @@ public class ControllerAspect {
 
     @Pointcut(value = POINT_CUT)
     public void pointcut() {
-        log.info("aaaa");
     }
 
     @Around(value = "pointcut()")
