@@ -2,6 +2,7 @@ package com.example.demo.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -18,6 +19,15 @@ public class ControllerAspect {
 
     @Pointcut(value = POINT_CUT)
     public void pointcut() {
+        log.info("aaaa");
+    }
+
+    @Around(value = "pointcut()")
+    public Object around(ProceedingJoinPoint pjp) throws Throwable {
+        log.info("step 1: {}", pjp);
+        Object result = pjp.proceed();
+        log.info("step 5: {}", result);
+        return result;
     }
 
     /**
@@ -25,19 +35,20 @@ public class ControllerAspect {
      */
     @Before(value = "pointcut()")
     public void before(JoinPoint joinPoint) {
-        log.info("before joinPoint: {}", joinPoint);
+        log.info("step 2: {}", joinPoint);
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (Objects.nonNull(servletRequestAttributes)) {
             HttpServletRequest request = servletRequestAttributes.getRequest();
         }
     }
 
+
     /**
      * 后置返回通知（After returning advice）：在一个连接点正常完成后执行的通知
      */
     @AfterReturning(pointcut = "pointcut()")
     public void afterReturning(JoinPoint joinPoint) {
-        log.info("afterReturning joinPoint: {}", joinPoint);
+        log.info("step 3: {}", joinPoint);
     }
 
     /**
@@ -45,7 +56,7 @@ public class ControllerAspect {
      */
     @AfterThrowing(pointcut = "pointcut()", throwing = "throwable")
     public void afterThrowing(JoinPoint joinPoint, Throwable throwable) {
-        log.info("afterThrowing joinPoint: {}, throwable: {}", joinPoint, throwable);
+        log.info("step 3: {}, throwable: {}", joinPoint, throwable);
     }
 
     /**
@@ -53,6 +64,6 @@ public class ControllerAspect {
      */
     @After(value = "pointcut()")
     public void after(JoinPoint joinPoint) {
-        log.info("after joinPoint: {}", joinPoint);
+        log.info("step 4: {}", joinPoint);
     }
 }
