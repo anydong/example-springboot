@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     @PostMapping("/login")
-    public Response login() {
-       // log.info("request body {}", raw);
+    public Response login(@Nullable @RequestBody String raw) {
+        log.info("request body {}", raw);
         return Response.buildSuccess();
     }
 }
