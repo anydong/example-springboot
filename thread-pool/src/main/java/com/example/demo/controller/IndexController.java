@@ -1,13 +1,15 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.IndexService;
 import com.example.demo.thread.ThreadPoolFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -15,8 +17,15 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 @Slf4j
 @RestController
+@RequestMapping
 public class IndexController {
     private static final ThreadPoolExecutor THREAD_POOL_EXECUTOR = ThreadPoolFactory.make("HELLO");
+    private final IndexService indexService;
+
+    @Autowired
+    public IndexController(IndexService indexService) {
+        this.indexService = indexService;
+    }
 
     @GetMapping(value = "/")
     public void index() {
@@ -27,6 +36,13 @@ public class IndexController {
 
         log.info(THREAD_POOL_EXECUTOR.toString());
     }
+
+    @GetMapping(value = "/async")
+    public String async() {
+        indexService.index();
+        return String.valueOf(System.currentTimeMillis());
+    }
+
 
     private Callable<String> getCallable() {
         return () -> {
