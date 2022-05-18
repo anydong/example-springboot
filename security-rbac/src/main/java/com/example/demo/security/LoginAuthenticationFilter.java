@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -42,7 +43,9 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
         JsonNode body = JSONUtil.MAPPER.readTree(wrapper.getInputStream());
         String username = obtainUsername(body);
         String password = obtainPassword(body);
-        Authentication authentication = new LoginAuthentication(username, password);
+        UserDetails userDetails = (UserDetails) this.authenticationDetailsSource.buildDetails(wrapper);
+        Authentication authentication = new LoginAuthentication(username, password, userDetails);
+
         log.info("authentication {}", authentication);
 
         return this.getAuthenticationManager().authenticate(authentication);
@@ -60,7 +63,6 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
         } catch (Exception e) {
             return null;
         }
-
     }
 
     private String obtainPassword(JsonNode body) {

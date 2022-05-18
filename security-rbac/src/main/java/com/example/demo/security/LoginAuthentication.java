@@ -31,22 +31,25 @@ public class LoginAuthentication implements Authentication {
     /**
      * 用户详情
      */
-    @Setter
     private UserDetails details;
+
+    public LoginAuthentication(String principal, String credentials, UserDetails userDetails) {
+        this(principal, credentials, userDetails, false);
+    }
+
+    public LoginAuthentication(String principal, String credentials, UserDetails userDetails, boolean authenticated) {
+        this.principal = principal;
+        this.credentials = credentials;
+        this.details = userDetails;
+        this.authenticated = authenticated;
+    }
+
     /**
      * 用户拥有的权限
      */
-    @Setter
-    private Collection<? extends GrantedAuthority> authorities;
-
-    public LoginAuthentication(String principal, String credentials) {
-        this.principal = principal;
-        this.credentials = credentials;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+        return null != this.details ? this.details.getAuthorities() : null;
     }
 
     @Override
