@@ -1,5 +1,8 @@
 package com.example.demo.security;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +13,8 @@ import java.util.Collection;
  * @author Where.LIU
  * @since 2022/5/17
  */
+@ToString
+@NoArgsConstructor
 public class LoginAuthentication implements Authentication {
     /**
      * username
@@ -26,11 +31,18 @@ public class LoginAuthentication implements Authentication {
     /**
      * 用户详情
      */
+    @Setter
     private UserDetails details;
     /**
      * 用户拥有的权限
      */
+    @Setter
     private Collection<? extends GrantedAuthority> authorities;
+
+    public LoginAuthentication(String principal, String credentials) {
+        this.principal = principal;
+        this.credentials = credentials;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
