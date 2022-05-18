@@ -1,7 +1,7 @@
 package com.example.demo.converter;
 
 import com.example.demo.dataobject.UserDO;
-import com.example.demo.entity.UserEntity;
+import com.example.demo.entity.user.UserEntity;
 import com.example.demo.entity.user.CreateUserEntity;
 import org.mapstruct.Mapper;
 

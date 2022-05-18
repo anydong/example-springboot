@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.entity.user;
 
 import com.alibaba.cola.domain.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
