@@ -1,15 +1,16 @@
 package com.example.demo.service;
 
 import com.example.demo.converter.UserConverter;
-import com.example.demo.dataobject.UserDO;
-import com.example.demo.entity.UserEntity;
 import com.example.demo.dao.UserDaoImpl;
+import com.example.demo.dataobject.UserDO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 /**
  * @author Where.LIU
@@ -33,6 +34,9 @@ public class UserServiceImpl implements UserDetailsService {
             return null;
         }
         UserDO userDO = userDao.getByUsername(username);
+        if (Objects.isNull(userDO)) {
+            throw new UsernameNotFoundException("Invalid username.");
+        }
         return userConverter.of(userDO);
     }
 }
