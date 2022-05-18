@@ -38,7 +38,7 @@ public class RoleService {
             return null;
         }
         RoleEntity roleEntity = roleConverter.of(roleDO);
-        List<PermissionEntity> permissionEntityList = rolePermissionService.listPermissions(roleId)
+        List<PermissionEntity> permissionEntityList = rolePermissionService.listPermissions(roleId);
         roleEntity.setPermissions(permissionEntityList);
 
         return roleEntity;
