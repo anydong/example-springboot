@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,7 +11,12 @@ import java.util.Collection;
  * @author Where.LIU
  * @since 2022/5/17
  */
+@Data
 public class UserEntity implements UserDetails {
+    private String username;
+    @JsonIgnore
+    private String password;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -17,12 +24,12 @@ public class UserEntity implements UserDetails {
 
     @Override
     public String getPassword() {
-        return "password";
+        return this.password;
     }
 
     @Override
     public String getUsername() {
-        return "username";
+        return this.username;
     }
 
     @Override

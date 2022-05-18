@@ -3,6 +3,7 @@ package com.example.demo.security;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,13 +32,11 @@ public class LoginAuthenticationManager implements AuthenticationManager {
         String username = (String) authentication.getPrincipal();
         String password = (String) authentication.getCredentials();
         UserDetails userDetails = (UserDetails) authentication.getDetails();
-        if (null == password || null == userDetails) {
-            return null;
+        if (null == password || null == userDetails || !passwordEncoder.matches(password, userDetails.getPassword())) {
+            throw new BadCredentialsException("Invalid password.");
         }
-        LoginAuthentication loginAuthentication = null;
-        if (passwordEncoder.matches(password, userDetails.getPassword())) {
-            loginAuthentication = new LoginAuthentication(username, password, userDetails, true);
-        }
+        LoginAuthentication loginAuthentication = new LoginAuthentication(username, password, userDetails, true);
+        log.info("{}", loginAuthentication);
 
         return loginAuthentication;
     }

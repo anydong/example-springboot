@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,7 +16,13 @@ import org.springframework.stereotype.Component;
 public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if (null == username) {
+            return null;
+        }
         log.info("username {}", username);
-        return null;
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(username);
+        userEntity.setPassword("$2a$10$WY1Vj02xFV80vthExkNywOlWm5HjZlWDluCNmDR2peJkbgDVW3bQS");
+        return userEntity;
     }
 }
