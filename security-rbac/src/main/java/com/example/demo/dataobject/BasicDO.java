@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * @since 2022/5/18
  */
 @Data
-public class BasicDO {
+public abstract class BasicDO {
     @TableId(type = IdType.AUTO)
     protected Long id;
     @Version

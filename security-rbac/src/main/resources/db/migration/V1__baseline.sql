@@ -35,6 +35,7 @@ CREATE TABLE `permission`
 (
     `id`         BIGINT UNSIGNED AUTO_INCREMENT            NOT NULL COMMENT '主键',
     `pid`        BIGINT UNSIGNED DEFAULT 0                 NOT NULL COMMENT '父 ID',
+    `oid`        VARCHAR(32)     DEFAULT ''                NOT NULL COMMENT 'ObjectID',
     `name`       VARCHAR(64)                               NOT NULL COMMENT '权限名',
     `path`       VARCHAR(128)    DEFAULT '/'               NOT NULL COMMENT '请求路径',
     `method`     VARCHAR(32)     DEFAULT 'GET'             NOT NULL COMMENT '请求方法',

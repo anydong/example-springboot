@@ -1,5 +1,6 @@
 package com.example.demo.dataobject;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -13,6 +14,7 @@ import lombok.EqualsAndHashCode;
 @TableName(value = "permission")
 public class PermissionDO extends BasicDO {
     private Long pid;
+    private String oid;
     private String name;
     private String path;
     private String method;
