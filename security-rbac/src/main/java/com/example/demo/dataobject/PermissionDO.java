@@ -2,23 +2,18 @@ package com.example.demo.dataobject;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author Where.LIU
  * @since 2022/5/18
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @TableName(value = "permission")
-public class PermissionDO {
-    private Long id;
+public class PermissionDO extends BasicDO {
     private Long pid;
     private String name;
     private String path;
     private String method;
-    private Integer version;
-    private LocalDateTime deletedAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime createdAt;
 }
