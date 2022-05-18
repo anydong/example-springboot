@@ -10,6 +10,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -29,6 +31,10 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
 
     public LoginAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(PATH_REQUEST_MATCHER, authenticationManager);
+    }
+
+    public LoginAuthenticationFilter(RequestMatcher requestMatcher, AuthenticationManager authenticationManager) {
+        super(requestMatcher, authenticationManager);
     }
 
     @Override

@@ -18,6 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -45,8 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    public LoginAuthenticationFilter loginAuthenticationFilter() {
-        LoginAuthenticationFilter filter = new LoginAuthenticationFilter(loginAuthenticationManager);
+    private LoginAuthenticationFilter loginAuthenticationFilter() {
+        RequestMatcher requestMatcher = new AntPathRequestMatcher("/auth/login", "POST");
+        LoginAuthenticationFilter filter = new LoginAuthenticationFilter(requestMatcher, loginAuthenticationManager);
         filter.setAuthenticationFailureHandler(loginAuthenticationFailureHandler);
         filter.setAuthenticationSuccessHandler(loginAuthenticationSuccessHandler);
         filter.setAuthenticationDetailsSource(loginAuthenticationDetailsSource);
@@ -62,10 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().disable();
         http.csrf().disable();
-        http
-                .addFilterBefore(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests().anyRequest().authenticated()
-        ;
-
+        http.addFilterBefore(loginAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers("/index").permitAll();
     }
 }
