@@ -2,6 +2,7 @@ package com.example.demo.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
@@ -10,38 +11,59 @@ import java.util.Collection;
  * @since 2022/5/17
  */
 public class LoginAuthentication implements Authentication {
+    /**
+     * username
+     */
+    private String principal;
+    /**
+     * password
+     */
+    private String credentials;
+    /**
+     * 是否通过验证
+     */
+    private boolean authenticated = false;
+    /**
+     * 用户详情
+     */
+    private UserDetails details;
+    /**
+     * 用户拥有的权限
+     */
+    private Collection<? extends GrantedAuthority> authorities;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.authorities;
     }
 
     @Override
     public Object getCredentials() {
-        return null;
+        return this.credentials;
     }
 
     @Override
     public Object getDetails() {
-        return null;
+        return this.details;
     }
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return this.principal;
     }
 
     @Override
     public boolean isAuthenticated() {
-        return true;
+        return this.authenticated;
     }
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-
+        this.authenticated = isAuthenticated;
     }
 
     @Override
     public String getName() {
-        return null;
+        return null != this.details ? this.details.getUsername() : null;
     }
 }

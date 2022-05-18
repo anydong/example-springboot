@@ -37,11 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
-
-    public LoginAuthenticationProvider loginAuthenticationProvider() {
-        return new LoginAuthenticationProvider();
-    }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
