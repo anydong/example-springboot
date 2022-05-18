@@ -2,6 +2,7 @@ package com.example.demo.converter;
 
 import com.example.demo.dataobject.RoleDO;
 import com.example.demo.entity.role.CreateRoleEntity;
+import com.example.demo.entity.role.RoleEntity;
 import org.mapstruct.Mapper;
 
 /**
@@ -17,4 +18,6 @@ public interface RoleConverter {
      * @return 数据库模型
      */
     RoleDO of(CreateRoleEntity source);
+
+    RoleEntity of(RoleDO source);
 }
