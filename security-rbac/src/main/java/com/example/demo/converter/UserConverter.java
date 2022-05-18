@@ -2,6 +2,7 @@ package com.example.demo.converter;
 
 import com.example.demo.dataobject.UserDO;
 import com.example.demo.entity.UserEntity;
+import com.example.demo.entity.user.CreateUserEntity;
 import org.mapstruct.Mapper;
 
 /**
@@ -17,4 +18,12 @@ public interface UserConverter {
      * @return 实体模型
      */
     UserEntity of(UserDO source);
+
+    /**
+     * 创建用户使用的对象转换
+     *
+     * @param source 创建实体
+     * @return 数据库模型
+     */
+    UserDO of(CreateUserEntity source);
 }
