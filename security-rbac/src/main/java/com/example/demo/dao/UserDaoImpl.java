@@ -10,6 +10,7 @@ import com.example.demo.mapper.UserMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Where.LIU
@@ -18,13 +19,11 @@ import java.util.Objects;
 @Service
 public class UserDaoImpl extends ServiceImpl<UserMapper, UserDO>
         implements IService<UserDO> {
-    public UserDO getByUsername(String username) {
-        if (Objects.isNull(username)) {
-            return null;
-        }
+    public Optional<UserDO> getByUsername(String username) {
         LambdaQueryWrapper<UserDO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(UserDO::getUsername, username);
         queryWrapper.last(Constant.LIMIT_ONE);
-        return getOne(queryWrapper);
+        UserDO userDO = getOne(queryWrapper);
+        return Optional.ofNullable(userDO);
     }
 }

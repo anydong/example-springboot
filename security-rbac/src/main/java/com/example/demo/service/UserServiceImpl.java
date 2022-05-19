@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Where.LIU
@@ -33,10 +33,9 @@ public class UserServiceImpl implements UserDetailsService {
         if (null == username) {
             return null;
         }
-        UserDO userDO = userDao.getByUsername(username);
-        if (Objects.isNull(userDO)) {
-            throw new UsernameNotFoundException("Invalid username.");
-        }
-        return userConverter.of(userDO);
+        Optional<UserDO> userOptional = userDao.getByUsername(username);
+        return userOptional
+                .map(userConverter::of)
+                .orElseThrow(() -> new UsernameNotFoundException("Invalid username."));
     }
 }

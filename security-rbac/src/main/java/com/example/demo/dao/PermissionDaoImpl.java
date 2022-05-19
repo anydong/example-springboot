@@ -8,7 +8,6 @@ import com.example.demo.dataobject.PermissionDO;
 import com.example.demo.mapper.PermissionMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,9 +25,6 @@ public class PermissionDaoImpl extends ServiceImpl<PermissionMapper, PermissionD
      * @return 子权限列表
      */
     public List<PermissionDO> listByPid(Long pid) {
-        if (null == pid) {
-            return Collections.emptyList();
-        }
         LambdaQueryWrapper<PermissionDO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(PermissionDO::getPid, pid);
         return list(queryWrapper);

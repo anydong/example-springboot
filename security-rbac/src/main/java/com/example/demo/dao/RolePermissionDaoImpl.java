@@ -8,9 +8,7 @@ import com.example.demo.dataobject.RolePermissionDO;
 import com.example.demo.mapper.RolePermissionMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author Where.LIU
@@ -27,9 +25,6 @@ public class RolePermissionDaoImpl extends ServiceImpl<RolePermissionMapper, Rol
      * @return 角色关联权限
      */
     public List<RolePermissionDO> listByRoleId(Long roleId) {
-        if (Objects.isNull(roleId)) {
-            return Collections.emptyList();
-        }
         LambdaQueryWrapper<RolePermissionDO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(RolePermissionDO::getRoleId, roleId);
         return list(queryWrapper);
