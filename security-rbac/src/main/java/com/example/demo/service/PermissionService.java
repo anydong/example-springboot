@@ -26,11 +26,10 @@ public class PermissionService {
         this.permissionDao = permissionDao;
     }
 
-    public PermissionEntity getByPermissionId(Long permissionId) {
+    public Optional<PermissionEntity> getByPermissionId(Long permissionId) {
         PermissionDO permissionDO = permissionDao.getById(permissionId);
         return Optional.ofNullable(permissionDO)
-                .map(permissionConverter::of)
-                .orElse(null);
+                .map(permissionConverter::of);
     }
 
     /**
@@ -39,14 +38,13 @@ public class PermissionService {
      * @param permissionId 父 ID
      * @return 权限树
      */
-    public PermissionEntity getWithChildrenByPermissionId(Long permissionId) {
-        PermissionEntity permissionEntity = this.getByPermissionId(permissionId);
-        if (null == permissionEntity) {
-            return null;
-        }
-        List<PermissionEntity> children = listWithChildrenByPid(permissionId);
-        permissionEntity.setChildren(children);
-        return permissionEntity;
+    public Optional<PermissionEntity> getWithChildrenByPermissionId(Long permissionId) {
+        return this.getByPermissionId(permissionId)
+                .map(permissionEntity -> {
+                    List<PermissionEntity> children = listWithChildrenByPid(permissionId);
+                    permissionEntity.setChildren(children);
+                    return permissionEntity;
+                });
     }
 
     public List<PermissionEntity> listByPid(Long pid) {

@@ -3,9 +3,12 @@ package com.example.demo.service;
 import com.example.demo.entity.permission.PermissionEntity;
 import com.example.demo.util.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Optional;
 
 /**
  * @author Where.LIU
@@ -24,7 +27,8 @@ public class PermissionServiceTests {
     @Test
     public void getWithChildrenByPermissionId() {
         Long permissionId = 1L;
-        PermissionEntity entity = permissionService.getWithChildrenByPermissionId(permissionId);
-        log.info("{}", JSONUtil.toJSONString(entity));
+        Optional<PermissionEntity> entityOptional = permissionService.getWithChildrenByPermissionId(permissionId);
+        Assertions.assertTrue(entityOptional.isPresent());
+        log.info("{}", JSONUtil.toJSONString(entityOptional.get()));
     }
 }
