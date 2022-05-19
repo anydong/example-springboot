@@ -7,6 +7,7 @@ import com.example.demo.entity.permission.PermissionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -30,5 +31,42 @@ public class PermissionService {
         return Optional.ofNullable(permissionDO)
                 .map(permissionConverter::of)
                 .orElse(null);
+    }
+
+    /**
+     * 递归获取所有的权限
+     *
+     * @param permissionId 父 ID
+     * @return 权限树
+     */
+    public PermissionEntity getWithChildrenByPermissionId(Long permissionId) {
+        PermissionEntity permissionEntity = this.getByPermissionId(permissionId);
+        if (null == permissionEntity) {
+            return null;
+        }
+        List<PermissionEntity> children = listWithChildrenByPid(permissionId);
+        permissionEntity.setChildren(children);
+        return permissionEntity;
+    }
+
+    public List<PermissionEntity> listByPid(Long pid) {
+        return permissionDao.listByPid(pid).stream()
+                .map(permissionConverter::of)
+                .toList();
+    }
+
+    /**
+     * 递归获取所有的权限
+     *
+     * @param pid 父 ID
+     * @return 权限树
+     */
+    public List<PermissionEntity> listWithChildrenByPid(Long pid) {
+        List<PermissionEntity> permissionEntityList = this.listByPid(pid);
+        for (PermissionEntity permissionEntity : permissionEntityList) {
+            List<PermissionEntity> permissionEntityChildren = listWithChildrenByPid(permissionEntity.getId());
+            permissionEntity.setChildren(permissionEntityChildren);
+        }
+        return permissionEntityList;
     }
 }

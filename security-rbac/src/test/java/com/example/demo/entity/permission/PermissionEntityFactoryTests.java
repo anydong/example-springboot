@@ -29,7 +29,7 @@ public class PermissionEntityFactoryTests {
         String name = "test-children";
         String path = "/auth/logout";
         String method = RequestMethod.GET.name();
-        CreatePermissionEntity entity = PermissionEntityFactory.create(name, path, method, 1L);
+        CreatePermissionEntity entity = PermissionEntityFactory.create(name, path, method, 2L);
         entity.save();
         Assertions.assertNotNull(entity.getId());
         log.info("{}", entity);
