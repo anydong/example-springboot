@@ -41,7 +41,7 @@ public class PermissionService {
     public Optional<PermissionEntity> getWithChildrenByPermissionId(Long permissionId) {
         return this.getByPermissionId(permissionId)
                 .map(permissionEntity -> {
-                    List<PermissionEntity> children = listWithChildrenByPid(permissionId);
+                    List<PermissionEntity> children = this.listWithChildrenByPid(permissionId);
                     permissionEntity.setChildren(children);
                     return permissionEntity;
                 });
@@ -62,7 +62,7 @@ public class PermissionService {
     public List<PermissionEntity> listWithChildrenByPid(Long pid) {
         List<PermissionEntity> permissionEntityList = this.listByPid(pid);
         for (PermissionEntity permissionEntity : permissionEntityList) {
-            List<PermissionEntity> permissionEntityChildren = listWithChildrenByPid(permissionEntity.getId());
+            List<PermissionEntity> permissionEntityChildren = this.listWithChildrenByPid(permissionEntity.getId());
             permissionEntity.setChildren(permissionEntityChildren);
         }
         return permissionEntityList;
