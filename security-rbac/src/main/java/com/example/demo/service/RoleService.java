@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Where.LIU
@@ -40,5 +41,37 @@ public class RoleService {
         roleEntity.setPermissions(permissionEntityList);
 
         return Optional.of(roleEntity);
+    }
+
+    public List<RoleEntity> listRoleByPid(Long pid) {
+        return roleDao.listRoleByPid(pid).stream()
+                .map(roleConverter::of)
+                .peek(roleEntity -> {
+                    List<PermissionEntity> permissionEntityList = rolePermissionService.listPermissions(roleEntity.getId());
+                    roleEntity.setPermissions(permissionEntityList);
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<RoleEntity> listRoleWithChildrenByPid(Long pid) {
+        return roleDao.listRoleByPid(pid).stream()
+                .map(roleConverter::of)
+                .peek(roleEntity -> {
+                    List<RoleEntity> children = this.listRoleWithChildrenByPid(roleEntity.getId());
+                    roleEntity.setChildren(children);
+                    List<PermissionEntity> permissionEntityList = rolePermissionService.listPermissions(roleEntity.getId());
+                    roleEntity.setPermissions(permissionEntityList);
+                })
+                .collect(Collectors.toList());
+    }
+
+    public Optional<RoleEntity> getRoleWithChildren(Long roleId) {
+        Optional<RoleEntity> roleEntityOptional = this.getRole(roleId);
+        roleEntityOptional.ifPresent(roleEntity -> {
+            List<RoleEntity> children = this.listRoleWithChildrenByPid(roleId);
+            roleEntity.setChildren(children);
+        });
+        return roleEntityOptional;
+
     }
 }
