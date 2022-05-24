@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Where.LIU
@@ -29,18 +30,15 @@ public class RoleService {
         this.roleConverter = roleConverter;
     }
 
-    public RoleEntity getRole(Long roleId) {
-        if (Objects.isNull(roleId)) {
-            return null;
-        }
+    public Optional<RoleEntity> getRole(Long roleId) {
         RoleDO roleDO = roleDao.getById(roleId);
         if (Objects.isNull(roleDO)) {
-            return null;
+            return Optional.empty();
         }
         RoleEntity roleEntity = roleConverter.of(roleDO);
         List<PermissionEntity> permissionEntityList = rolePermissionService.listPermissions(roleId);
         roleEntity.setPermissions(permissionEntityList);
 
-        return roleEntity;
+        return Optional.of(roleEntity);
     }
 }

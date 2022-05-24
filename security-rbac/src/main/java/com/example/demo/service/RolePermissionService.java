@@ -6,10 +6,9 @@ import com.example.demo.entity.permission.PermissionEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 /**
  * @author Where.LIU
@@ -28,16 +27,13 @@ public class RolePermissionService {
     }
 
     public List<PermissionEntity> listPermissions(Long roleId) {
-        if (Objects.isNull(roleId)) {
-            return Collections.emptyList();
-        }
         List<RolePermissionDO> rolePermissionDOList = rolePermissionDao.listByRoleId(roleId);
-        List<PermissionEntity> permissionEntityList = rolePermissionDOList.stream()
+        return rolePermissionDOList.stream()
                 .filter(Objects::nonNull)
                 .map(RolePermissionDO::getPermissionId)
                 .map(permissionService::getByPermissionId)
-                .filter(Objects::nonNull)
+                .filter(Optional::isEmpty)
+                .map(Optional::get)
                 .toList();
-        return permissionEntityList;
     }
 }
