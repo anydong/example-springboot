@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.demo.dataobject.RolePermissionDO;
 import com.example.demo.mapper.RolePermissionMapper;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,5 +29,20 @@ public class RolePermissionDaoImpl extends ServiceImpl<RolePermissionMapper, Rol
         LambdaQueryWrapper<RolePermissionDO> queryWrapper = Wrappers.lambdaQuery();
         queryWrapper.eq(RolePermissionDO::getRoleId, roleId);
         return list(queryWrapper);
+    }
+
+    public void roleAddPermissions(Long roleId, List<Long> permissionIds) {
+        if (CollectionUtils.isEmpty(permissionIds)) {
+            return;
+        }
+        List<RolePermissionDO> rolePermissionDOList = permissionIds.stream()
+                .map(permissionId -> {
+                    RolePermissionDO rolePermissionDO = new RolePermissionDO();
+                    rolePermissionDO.setRoleId(roleId);
+                    rolePermissionDO.setPermissionId(permissionId);
+                    return rolePermissionDO;
+                })
+                .toList();
+        saveBatch(rolePermissionDOList);
     }
 }
