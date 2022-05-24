@@ -31,4 +31,19 @@ public class UserRoleDaoImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
                 .toList();
         saveBatch(userRoleDOList);
     }
+
+    public void userAddRoles(Long userId, List<Long> roleIds) {
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return;
+        }
+        List<UserRoleDO> userRoleDOList = roleIds.stream()
+                .map(roleId -> {
+                    UserRoleDO userRoleDO = new UserRoleDO();
+                    userRoleDO.setUserId(userId);
+                    userRoleDO.setRoleId(roleId);
+                    return userRoleDO;
+                })
+                .toList();
+        saveBatch(userRoleDOList);
+    }
 }
