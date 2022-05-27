@@ -26,7 +26,7 @@ public class MyRestController {
     @RequestMapping(value = "/tasks", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<TaskRepresentation> getTasks(@RequestParam String assignee) {
         List<Task> tasks = myService.getTasks(assignee);
-        List<TaskRepresentation> dtos = new ArrayList<TaskRepresentation>();
+        List<TaskRepresentation> dtos = new ArrayList<>();
         for (Task task : tasks) {
             dtos.add(new TaskRepresentation(task.getId(), task.getName()));
         }
