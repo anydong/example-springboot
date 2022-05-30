@@ -10,7 +10,7 @@
         <sequenceFlow sourceRef="startEvent" targetRef="approveTask"/>
 
         <userTask id="approveTask" name="Approve or reject request"/>
-        <sequenceFlow sourceRef="approveTask" targetRef="decision"/>
+        <sequenceFlow sourceRef="approveTask" targetRef="decision" id="aa"/>
 
         <exclusiveGateway id="decision"/>
         <sequenceFlow sourceRef="decision" targetRef="externalSystemCall">
@@ -35,18 +35,13 @@
         <userTask id="holidayApprovedTask" name="Holiday approved"/>
         <sequenceFlow sourceRef="holidayApprovedTask" targetRef="approveEnd"/>
 
-        <serviceTask id="sendRejectionMail" name="Send out rejection email"
-                     flowable:class="SendRejectionMail"/>
+        <serviceTask id="sendRejectionMail" name="Send out rejection email" flowable:class="SendRejectionMail"/>
         <sequenceFlow sourceRef="sendRejectionMail" targetRef="rejectEnd"/>
 
         <endEvent id="approveEnd"/>
 
         <endEvent id="rejectEnd"/>
-
     </process>
 
-    <bpmndi:BPMNDiagram id="BPMNDiagram_demo">
-        <bpmndi:BPMNPlane bpmnElement="demo" id="BPMNPlane_demo">
-        </bpmndi:BPMNPlane>
-    </bpmndi:BPMNDiagram>
+
 </definitions>
