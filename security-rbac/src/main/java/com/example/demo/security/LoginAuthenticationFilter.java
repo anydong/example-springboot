@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-import com.example.demo.RequestWrapper;
+import com.example.demo.util.HttpRequestWrapper;
 import com.example.demo.util.JSONUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -39,13 +38,13 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        RequestWrapper wrapper = new RequestWrapper((HttpServletRequest) request);
+        HttpRequestWrapper wrapper = new HttpRequestWrapper((HttpServletRequest) request);
         super.doFilter(wrapper, response, chain);
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-        RequestWrapper wrapper = (RequestWrapper) request;
+        HttpRequestWrapper wrapper = (HttpRequestWrapper) request;
         JsonNode body = JSONUtil.MAPPER.readTree(wrapper.getInputStream());
         String username = obtainUsername(body);
         String password = obtainPassword(body);

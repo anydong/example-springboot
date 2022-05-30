@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.util;
 
 import org.springframework.util.StreamUtils;
 
@@ -16,10 +16,10 @@ import java.io.InputStream;
  * @author VIJAY SRJ
  * @since SEPTEMBER 21, 2021
  */
-public class RequestWrapper extends HttpServletRequestWrapper {
+public class HttpRequestWrapper extends HttpServletRequestWrapper {
     private final byte[] body;
 
-    public RequestWrapper(HttpServletRequest request) throws IOException {
+    public HttpRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
 
         this.body = StreamUtils.copyToByteArray(request.getInputStream());

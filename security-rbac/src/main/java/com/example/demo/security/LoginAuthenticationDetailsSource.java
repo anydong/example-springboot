@@ -1,6 +1,6 @@
 package com.example.demo.security;
 
-import com.example.demo.RequestWrapper;
+import com.example.demo.util.HttpRequestWrapper;
 import com.example.demo.util.JSONUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +30,9 @@ public class LoginAuthenticationDetailsSource
 
     @Override
     public UserDetails buildDetails(HttpServletRequest context) {
-        RequestWrapper requestWrapper = (RequestWrapper) context;
+        HttpRequestWrapper httpRequestWrapper = (HttpRequestWrapper) context;
         try {
-            JsonNode body = JSONUtil.MAPPER.readTree(requestWrapper.getInputStream());
+            JsonNode body = JSONUtil.MAPPER.readTree(httpRequestWrapper.getInputStream());
             String username = obtainUsername(body);
             return userDetailsService.loadUserByUsername(username);
         } catch (IOException e) {

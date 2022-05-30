@@ -1,6 +1,6 @@
 package com.example.demo.filter;
 
-import com.example.demo.RequestWrapper;
+import com.example.demo.util.HttpRequestWrapper;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.*;
@@ -17,7 +17,7 @@ import java.io.IOException;
 public class BasicFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        RequestWrapper requestWrapper = new RequestWrapper((HttpServletRequest) servletRequest);
-        filterChain.doFilter(requestWrapper, servletResponse);
+        HttpRequestWrapper httpRequestWrapper = new HttpRequestWrapper((HttpServletRequest) servletRequest);
+        filterChain.doFilter(httpRequestWrapper, servletResponse);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.demo.util;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
@@ -56,8 +55,8 @@ public class JSONUtil {
                 .enable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
                 // 忽略反序列化中出现的未知属性
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+                .addModule(javaTimeModule)
                 .build();
-        MAPPER.registerModule(javaTimeModule);
     }
 
     /**
