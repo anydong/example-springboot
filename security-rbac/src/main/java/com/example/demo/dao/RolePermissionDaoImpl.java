@@ -10,6 +10,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Where.LIU
@@ -42,7 +43,7 @@ public class RolePermissionDaoImpl extends ServiceImpl<RolePermissionMapper, Rol
                     rolePermissionDO.setPermissionId(permissionId);
                     return rolePermissionDO;
                 })
-                .toList();
+                .collect(Collectors.toList());
         saveBatch(rolePermissionDOList);
     }
 }

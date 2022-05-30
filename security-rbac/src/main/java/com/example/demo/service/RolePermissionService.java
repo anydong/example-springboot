@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author Where.LIU
@@ -34,6 +35,6 @@ public class RolePermissionService {
                 .map(permissionService::getByPermissionId)
                 .filter(Optional::isEmpty)
                 .map(Optional::get)
-                .toList();
+                .collect(Collectors.toList());
     }
 }

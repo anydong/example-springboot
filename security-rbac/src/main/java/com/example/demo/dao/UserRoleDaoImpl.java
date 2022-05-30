@@ -8,6 +8,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Where.LIU
@@ -28,7 +29,7 @@ public class UserRoleDaoImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
                     userRoleDO.setRoleId(roleId);
                     return userRoleDO;
                 })
-                .toList();
+                .collect(Collectors.toList());
         saveBatch(userRoleDOList);
     }
 
@@ -43,7 +44,7 @@ public class UserRoleDaoImpl extends ServiceImpl<UserRoleMapper, UserRoleDO>
                     userRoleDO.setRoleId(roleId);
                     return userRoleDO;
                 })
-                .toList();
+                .collect(Collectors.toList());
         saveBatch(userRoleDOList);
     }
 }
