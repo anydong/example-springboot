@@ -2,15 +2,12 @@ package com.example.demo.service;
 
 import com.example.demo.converter.UserConverter;
 import com.example.demo.dao.UserDaoImpl;
-import com.example.demo.dataobject.UserDO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 /**
  * @author Where.LIU
@@ -30,11 +27,7 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (null == username) {
-            return null;
-        }
-        Optional<UserDO> userOptional = userDao.getByUsername(username);
-        return userOptional
+        return userDao.getByUsername(username)
                 .map(userConverter::of)
                 .orElseThrow(() -> new UsernameNotFoundException("Invalid username."));
     }
