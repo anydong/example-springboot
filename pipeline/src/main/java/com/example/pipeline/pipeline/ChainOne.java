@@ -4,21 +4,18 @@ import com.example.pipeline.schema.AbsChain;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
  * @author Where.LIU
  * @since 2022/7/14
  */
-@Component
+@Component()
 @Slf4j
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ChainOne extends AbsChain<StrInput, StrContext, StrOutput> {
-
-    @Autowired
-    public ChainOne(ChainOneChildOne chainOneChildOne) {
-        this.next = chainOneChildOne;
-    }
-
     @Override
     protected void handler(StrInput input, StrContext context, StrOutput output) {
         log.info("one");

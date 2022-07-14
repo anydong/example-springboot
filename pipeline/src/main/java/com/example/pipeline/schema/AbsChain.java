@@ -1,5 +1,7 @@
 package com.example.pipeline.schema;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 import java.util.Objects;
@@ -9,7 +11,9 @@ import java.util.Objects;
  * @since 2022/7/14
  */
 public abstract class AbsChain<I extends AbsInput, C extends AbsContext, O extends AbsOutput> implements ChainI<I, C, O> {
-    protected AbsChain<I, C, O> next;
+    @Setter
+    @Getter
+    private AbsChain<I, C, O> next;
 
     /**
      * 逻辑处理
