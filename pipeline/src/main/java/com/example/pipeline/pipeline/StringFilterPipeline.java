@@ -20,13 +20,13 @@ public class StringFilterPipeline extends AbsPipeline<StrInput, StrContext, StrO
         this.chainOne = chainOne;
         this.chainOneChildOne = chainOneChildOne;
         this.chainTwo = chainTwo;
-
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        chainOneChildOne.setNext(chainTwo);
-        chainOne.setNext(chainOneChildOne);
+        chainOne.setNext(chainOneChildOne)
+                .setNext(chainTwo);
+
         this.addChains(chainOne);
         this.addChains(chainTwo);
     }

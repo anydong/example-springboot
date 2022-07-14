@@ -11,7 +11,6 @@ import java.util.Objects;
  * @since 2022/7/14
  */
 public abstract class AbsChain<I extends AbsInput, C extends AbsContext, O extends AbsOutput> implements ChainI<I, C, O> {
-    @Setter
     @Getter
     private AbsChain<I, C, O> next;
 
@@ -31,5 +30,10 @@ public abstract class AbsChain<I extends AbsInput, C extends AbsContext, O exten
         if (Objects.nonNull(next) && continuable(input, context, output)) {
             next.executor(input, context, output);
         }
+    }
+
+    public AbsChain<I, C, O> setNext(AbsChain<I, C, O> next) {
+        this.next = next;
+        return next;
     }
 }
