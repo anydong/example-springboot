@@ -1,7 +1,6 @@
 package com.example.pipeline.schema;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.lang.NonNull;
 
 import java.util.Objects;
