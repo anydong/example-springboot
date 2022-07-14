@@ -16,7 +16,7 @@ public abstract class AbsChain<I extends AbsInput, C extends AbsContext, O exten
     /**
      * 逻辑处理
      */
-    protected abstract void handler(I input, C context, O output);
+    protected abstract void process(I input, C context, O output);
 
     /**
      * 是否继续执行下一个 chain
@@ -25,7 +25,7 @@ public abstract class AbsChain<I extends AbsInput, C extends AbsContext, O exten
 
     @Override
     public void executor(@NonNull I input, @NonNull C context, @NonNull O output) {
-        handler(input, context, output);
+        process(input, context, output);
         if (Objects.nonNull(next) && continuable(input, context, output)) {
             next.executor(input, context, output);
         }

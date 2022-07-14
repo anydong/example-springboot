@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class ChainOneChildOne extends AbsChain<StrInput, StrContext, StrOutput> {
 
     @Override
-    protected void handler(StrInput input, StrContext context, StrOutput output) {
+    protected void process(StrInput input, StrContext context, StrOutput output) {
         log.info("one-one");
     }
 

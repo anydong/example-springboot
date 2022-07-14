@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ChainOne extends AbsChain<StrInput, StrContext, StrOutput> {
     @Override
-    protected void handler(StrInput input, StrContext context, StrOutput output) {
+    protected void process(StrInput input, StrContext context, StrOutput output) {
         log.info("one");
         if (StringUtils.isNotEmpty(input.getInput())) {
             output.setResult(input.getInput().trim());

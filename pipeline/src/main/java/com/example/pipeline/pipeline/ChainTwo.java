@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ChainTwo extends AbsChain<StrInput, StrContext, StrOutput> {
     @Override
-    protected void handler(StrInput input, StrContext context, StrOutput output) {
+    protected void process(StrInput input, StrContext context, StrOutput output) {
         log.info("two");
     }
 
